@@ -2,9 +2,95 @@
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
 
+import {reactive} from 'vue'
+
 const counter = reactive({ 
-  count: 0 
+  count: 0, 
+  count2: 0,
+  activeOp: "",
+  setActiveOp: false
 })
+
+function calculate() {
+  console.log("===");
+  console.log(counter.activeOp);
+
+  if (counter.activeOp === "+") {
+    add();
+  } else if (counter.activeOp === "-") {
+    subtract();
+  } else if (counter.activeOp === "*") {
+    multiply();
+  } else if (counter.activeOp === "÷") {
+    divide();
+  }
+}
+function increment(num) {
+  console.log("hey");
+  if (counter.activeOp === "") {
+    if (counter.count === 0) {
+      counter.count = num;
+    } else {
+      counter.count = counter.count * 10 + num;
+    }
+  } else {
+    counter.setActiveOp = true;
+    if (counter.count2 === 0) {
+      counter.count2 = num;
+    } else {
+      counter.count2 = counter.count2 * 10 + num;
+    }
+  }
+}
+
+function add() {
+  counter.count = counter.count + counter.count2;
+  counter.count2 = 0;
+  clearOp();
+}
+function subtract() {
+  counter.count = counter.count - counter.count2;
+  counter.count2 = 0;
+  clearOp();
+}
+function multiply() {
+  console.log('called multiply');
+  console.log(counter.count);
+  console.log(counter.count2);
+  console.log(counter.count * counter.count2);
+  counter.count = counter.count * counter.count2;
+  counter.count2 = 0;
+  clearOp();
+}
+function divide() {
+  console.log('called divide');
+  console.log(counter.count);
+  console.log(counter.count2);
+  console.log(counter.count / counter.count2);
+  counter.count = counter.count / counter.count2;
+  counter.count2 = 0;
+  clearOp();
+}
+function clear() {
+  clearOp();
+  counter.count = 0;
+  counter.count2 = 0;
+}
+function setOp(operation) {
+  counter.activeOp = operation;  // ex op = "-"
+}
+function clearOp() {
+  counter.activeOp = "";
+  counter.setActiveOp = false;
+}
+function getCount() {
+  if (!counter.setActiveOp) {
+    return counter.count;
+  } else {
+    return counter.count2;
+  }
+
+}
 
 </script>
 
@@ -29,35 +115,36 @@ const counter = reactive({
     <div class="bar2">
       <div class="calcHolder">
         <div class="calcRowB">
-          <p class="calcText">{{ counter.count }}</p>
+          <p class="calcText">{{ getCount() }}</p>
         </div>
         <div class="calcRow">
-          <p class="buttonNum2">Clear</p>
+          <button @click="clear" class="buttonNum2">Clear</button>
           <p class="buttonEmpty"></p>
-          <p class="buttonOp">÷</p>
+          <p @click="setOp('÷')" class="buttonOp">÷</p>
         </div>
         <div class="calcRow">
-          <p class="buttonNum">7</p>
-          <p class="buttonNum">8</p>
-          <p class="buttonNum">9</p>
-          <p class="buttonOp">x</p>
+          <button @click="increment(7)" class="buttonNum">7</button>
+          <button @click="increment(8)" class="buttonNum">8</button>
+          <button @click="increment(9)" class="buttonNum">9</button>
+          <button @click="setOp('*')" class="buttonOp">x</button>
         </div>
         <div class="calcRow">
-          <p class="buttonNum">4</p>
-          <p class="buttonNum">5</p>
-          <p class="buttonNum">6</p>
-          <p class="buttonOp">-</p>
+          <button @click="increment(4)" class="buttonNum">4</button>
+          <button @click="increment(5)" class="buttonNum">5</button>
+          <button @click="increment(6)" class="buttonNum">6</button>
+          <button @click="setOp('-')" class="buttonOp">-</button>
         </div>
         <div class="calcRow">
-          <p class="buttonNum">1</p>
-          <p class="buttonNum">2</p>
-          <p class="buttonNum">3</p>
-          <p class="buttonOp">+</p>
+          <button @click="increment(1)" class="buttonNum">1</button>
+          <button @click="increment(2)" class="buttonNum">2</button>
+          <button @click="increment(3)" class="buttonNum">3</button>
+          <button @click="setOp('+')" class="buttonOp">+</button>
         </div>
         <div class="calcRow">
-          <p class="buttonNum2">0</p>
-          <p class="buttonNum">.</p>
-          <p class="buttonOp">=</p>
+          <button class="buttonNum2">0</button>
+          <p class="buttonEmpty"></p>
+          <!-- <button class="buttonNum">.</button> -->
+          <button @click="calculate" class="buttonOp">=</button>
         </div>
       </div>
     </div>

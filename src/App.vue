@@ -157,7 +157,7 @@ header {
   line-height: 1.5;
 }
 .calcHolder {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   width: 200px;
   height: 300px;
 }
@@ -171,7 +171,7 @@ header {
   flex-direction: row;
   align-items: center;
   justify-content: right;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   /* width: 400px;
   height: 100px; */
   width: 200px;
@@ -181,7 +181,7 @@ header {
   display: flex;
   flex-direction: row;
   align-items: center;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   width: 200px;
   height: 50px;
 }
@@ -191,11 +191,13 @@ header {
   align-items: center;
   justify-content: center;
   font-size: 24px;
-  /* text-align: center; */
   background-color: orange;
+  color: black;
+  border-radius: 10px;
   border: 4px solid rgb(234, 106, 55);
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  margin: 1px;
+  height: 48px;
 }
 .buttonEmpty {
   width: 50px;
@@ -208,9 +210,11 @@ header {
   justify-content: center;
   font-size: 24px;
   background-color: gray;
-  border: 4px solid rgb(197, 197, 197);
-  width: 50px;
-  height: 50px;
+  border: 1px solid rgb(197, 197, 197);
+  border-radius: 10px;
+  width: 48px;
+  margin: 1px;
+  height: 48px;
 }
 
 .buttonNum2 {
@@ -220,9 +224,11 @@ header {
   justify-content: center;
   font-size: 24px;
   background-color: gray;
-  border: 4px solid rgb(197, 197, 197);
-  width: 100px;
-  height: 50px;
+  border: 1px solid rgb(197, 197, 197);
+  border-radius: 10px;
+  width: 98px;
+  margin: 1px;
+  height: 48px;
 }
 
 .bar2 {
@@ -238,11 +244,10 @@ header {
   align-items: center;
 
   position: fixed;
-    top: 0;
+    top: 10px;
     left: 50%;
     -webkit-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
-  border: 2px solid red;
 }
 .bar1B {
   display: flex;
@@ -250,11 +255,10 @@ header {
   align-items: center;
 
   position: fixed;
-    bottom: 10px;
+    bottom: 20px;
     left: 50%;
     -webkit-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
-  border: 2px solid red;
 }
 .title {
   font-size: 36px;

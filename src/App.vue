@@ -8,12 +8,13 @@ const counter = reactive({
   count: 0, 
   count2: 0,
   activeOp: "",
+  calculated: false,
   setActiveOp: false
 })
 
 function calculate() {
-  console.log("===");
-  console.log(counter.activeOp);
+  // console.log("===");
+  // console.log(counter.activeOp);
 
   if (counter.activeOp === "+") {
     add();
@@ -24,11 +25,12 @@ function calculate() {
   } else if (counter.activeOp === "÷") {
     divide();
   }
+  counter.calculated = true;
 }
 function increment(num) {
-  console.log("hey");
-  if (counter.activeOp === "") {
-    if (counter.count === 0) {
+  if (counter.activeOp === "" || counter.calculated) {
+    if (counter.count === 0 || counter.calculated) {
+      counter.calculated = false;
       counter.count = num;
     } else {
       counter.count = counter.count * 10 + num;
@@ -75,6 +77,7 @@ function clear() {
   clearOp();
   counter.count = 0;
   counter.count2 = 0;
+  counter.calculated = false;
 }
 function setOp(operation) {
   counter.activeOp = operation;  // ex op = "-"
@@ -120,31 +123,38 @@ function getCount() {
         <div class="calcRow">
           <button @click="clear" class="buttonNum2">Clear</button>
           <p class="buttonEmpty"></p>
-          <p @click="setOp('÷')" class="buttonOp">÷</p>
+          <button v-if="counter.activeOp === '÷'" @click="setOp('÷')" class="buttonOp" id="opActive">÷</button>
+          <button v-else @click="setOp('÷')" class="buttonOp" id="op">÷</button>
+          
         </div>
         <div class="calcRow">
           <button @click="increment(7)" class="buttonNum">7</button>
           <button @click="increment(8)" class="buttonNum">8</button>
           <button @click="increment(9)" class="buttonNum">9</button>
-          <button @click="setOp('*')" class="buttonOp">x</button>
+          <button v-if="counter.activeOp === '*'" @click="setOp('*')" class="buttonOp" id="opActive">x</button>
+          <button v-else @click="setOp('*')" class="buttonOp" id="op">x</button>
+         
         </div>
         <div class="calcRow">
           <button @click="increment(4)" class="buttonNum">4</button>
           <button @click="increment(5)" class="buttonNum">5</button>
           <button @click="increment(6)" class="buttonNum">6</button>
-          <button @click="setOp('-')" class="buttonOp">-</button>
+          <button v-if="counter.activeOp === '-'" @click="setOp('-')" class="buttonOp" id="opActive">-</button>
+          <button v-else @click="setOp('-')" class="buttonOp" id="op">-</button>
+          
         </div>
         <div class="calcRow">
           <button @click="increment(1)" class="buttonNum">1</button>
           <button @click="increment(2)" class="buttonNum">2</button>
           <button @click="increment(3)" class="buttonNum">3</button>
-          <button @click="setOp('+')" class="buttonOp">+</button>
+          <button v-if="counter.activeOp === '+'" @click="setOp('+')" class="buttonOp" id="opActive">+</button>
+          <button v-else @click="setOp('+')" class="buttonOp" id="op">+</button>
         </div>
         <div class="calcRow">
           <button class="buttonNum2">0</button>
           <p class="buttonEmpty"></p>
           <!-- <button class="buttonNum">.</button> -->
-          <button @click="calculate" class="buttonOp">=</button>
+          <button @click="calculate" class="buttonOp" id="op">=</button>
         </div>
       </div>
     </div>
@@ -191,13 +201,20 @@ header {
   align-items: center;
   justify-content: center;
   font-size: 24px;
-  background-color: orange;
   color: black;
   border-radius: 10px;
-  border: 4px solid rgb(234, 106, 55);
+  background-color: orange;
+  /* border: 4px solid rgb(234, 106, 55); */
   width: 48px;
   margin: 1px;
   height: 48px;
+}
+#op{
+  border: 4px solid rgb(234, 106, 55);
+}
+#opActive {
+  border: 6px solid rgb(144, 86, 56);
+  /* border: 6px solid rgb(234 - 20, 106 - 20, 55 - 20); */
 }
 .buttonEmpty {
   width: 50px;
